@@ -1,0 +1,28 @@
+{
+  "name": "digital-piggy",
+  "version": "1.0.0",
+  "description": "Digital Piggy is a personal money tracker. There’s no date, and no daily, weekly or monthly reset. Everything the user adds stays in one running list for as long as the app exists, and the big number at the top is the total of all of it.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "git config core.hooksPath .githooks",
+    "check": "node scripts/pre-commit-check.js --all"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nigeltann/digital-piggy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/nigeltann/digital-piggy/issues"
+  },
+  "homepage": "https://github.com/nigeltann/digital-piggy#readme",
+  "dependencies": {
+    "body-parser": "^2.4.0",
+    "express": "^5.3.0",
+    "fs": "^0.0.1-security"
+  }
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>digital-piggy</title>
+
+    <!-- Bootstrap (same as lab) -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Inter font (matches Figma) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+
+    <!-- Our styles -->
+    <link rel="stylesheet" href="css/nigel.css">
+    <link rel="stylesheet" href="css/brendon.css">
+    <link rel="stylesheet" href="css/kai.css">
+
+    <!-- Feature scripts: one per member -->
+    <script src="js/view-transactions.js"></script>
+    <script src="js/brendon.js"></script>
+    <script src="js/nigel-tan.js"></script>
+    <script src="js/kai.js"></script>
+</head>
+
+<body onload="viewTransactions()">
+    <div class="container app">
+        <div class="row justify-content-center">
+
+            <!-- LEFT PANEL: Total + transaction list (Read) -->
+            <div class="col-md-7 mb-4">
+                <div class="panel" id="listPanel">
+                    <p class="label">Total Spending</p>
+                    <h1 class="total" id="totalAmount">$0.00</h1>
+                    <hr class="divider">
+                    <p class="label history-label">History:</p>
+                    <div id="transactionList"></div>
+                </div>
+            </div>
+
+            <!-- HOME: green "+" bar - opens the right panel (showAddForm() in js/view-transactions.js) -->
+            <div class="col-auto mb-4 add-col" id="addCol">
+                <button type="button" class="add-bar" onclick="showAddForm()" aria-label="Add transaction">
+                    <svg width="60" height="60" viewBox="0 0 60 60" aria-hidden="true">
+                        <rect x="26" y="0" width="8" height="60" fill="#ffffff" />
+                        <rect x="0" y="26" width="60" height="8" fill="#ffffff" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- RIGHT PANEL: Form (Create / Update / Delete) - hidden until "+" is clicked -->
+            <div class="col-md-5 mb-4 d-none" id="formCol">
+                <div class="panel" id="formPanel">
+                    <!-- ===== Brendon (create) form. Logic is in js/brendon.js, extra styles in css/brendon.css ===== -->
+                    <div id="createForm">
+                        <!-- Toggle: Add amount (income, +) / Spend amount (expense, -). Click calls selectType() -->
+                        <div class="type-toggle">
+                            <button type="button" id="btnIncome" class="toggle-btn active-income"
+                                onclick="selectType('income')">Add amount</button>
+                            <button type="button" id="btnExpense" class="toggle-btn"
+                                onclick="selectType('expense')">Spend amount</button>
+                        </div>
+
+                        <!-- Amount box: numbers only, 0.01 to 10,000.00 -->
+                        <p class="label">Amount:</p>
+                        <div class="amount-row">
+                            <span>$</span>
+                            <input type="number" id="amountInput" class="amount-input" step="0.01" min="0.01" max="10000" placeholder="xx.xx" aria-label="Amount">
+                        </div>
+                        <!-- Error message for Amount appears here (filled by brendon.js) -->
+                        <p class="form-message" id="amountError"></p>
+
+                        <!-- Description box: required, max 40 characters -->
+                        <p class="label">Description:</p>
+                        <textarea id="descriptionInput" maxlength="40" placeholder="Write something in here" aria-label="Description"></textarea>
+                        <!-- Error message for Description appears here -->
+                        <p class="form-message" id="descriptionError"></p>
+                        <!-- Green success message after a transaction is added -->
+                        <p class="form-message success" id="addSuccess" role="status"></p>
+
+                        <!-- Bottom buttons: Back (closes the panel) and + (saves via addTransaction()) -->
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-back" onclick="closeAddForm()" aria-label="Back">
+                                <img src="images/back-icon.png" alt="">
+                            </button>
+                            <button type="button" class="btn btn-save" onclick="addTransaction()" aria-label="Add">
+                                <img src="images/add-icon.png" alt="">
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Nigel (update) -->
+                    <div id="updateForm" class="d-none"></div>
+
+                    <!-- Kai (delete) -->
+                    <div id="deleteForm" class="d-none">
+                        <div class="type-toggle readonly">
+                            <button type="button" id="deleteBtnIncome" class="toggle-btn" disabled>Add amount</button>
+                            <button type="button" id="deleteBtnExpense" class="toggle-btn" disabled>Spend
+                                amount</button>
+                        </div>
+
+                        <p class="label">Amount:</p>
+                        <div class="amount-row">
+                            <span>$</span><span id="deleteAmount"></span>
+                        </div>
+
+                        <p class="label">Description:</p>
+                        <textarea id="deleteDescription" readonly aria-label="Description"></textarea>
+                        <p class="form-message" id="deleteError"></p>
+
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-back" onclick="hideDeleteForm()" aria-label="Back">
+                                <img src="images/back-icon.png" alt="">
+                            </button>
+                            <button type="button" class="btn btn-confirm-delete" onclick="confirmDelete()"
+                                aria-label="Delete">
+                                <img src="images/delete-icon.png" alt="">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

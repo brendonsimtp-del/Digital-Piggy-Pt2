@@ -1,0 +1,108 @@
+/* ===== Brendon - Create form extras =====
+   Most form styles (toggle, amount, textarea, buttons) are shared in styles.css */
+
+/* Faded "xx.xx" hint text shown inside the empty amount box */
+.amount-input::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+/* Hide the little up/down arrows on the number box in Firefox
+   (the shared styles.css hides them in Chrome/Edge) */
+.amount-input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* Description box: full width, 160px tall, dark readable text */
+#descriptionInput {
+    width: 100%;
+    height: 160px;
+    font-size: 16px;
+    color: #111111;
+}
+
+/* Red error text under the Amount and Description boxes.
+   min-height keeps the space reserved so the form doesn't jump
+   when a message appears. (Filled by showFieldError in brendon.js) */
+.form-message {
+    min-height: 22px;
+    margin: 8px 0 0;
+    color: var(--red);
+    font-size: 14px;
+}
+
+/* Create form messages shown as boxes (only inside #createForm, so
+   Nigel's and Kai's forms keep their own look).
+   Red box = error, green box = success. Empty messages are hidden. */
+#createForm .form-message {
+    min-height: 0;
+    margin: 8px 0 0;
+    padding: 8px 14px;
+    border: 1.5px solid var(--red);
+    border-radius: 12px;
+    background: rgba(248, 81, 72, 0.10);   /* light red tint */
+    color: var(--red);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+#createForm .form-message.success {
+    border-color: var(--green);
+    background: rgba(62, 184, 80, 0.10);   /* light green tint */
+    color: var(--green);
+}
+
+/* No text = no box */
+#createForm .form-message:empty {
+    display: none;
+}
+
+/* Keep the right panel the SAME height whatever messages show.
+   The form has a fixed height (panel 640px - 140px padding = 500px) and is a
+   column; the description box stretches to fill the leftover space. When an
+   error/success box appears, the description box shrinks instead of the
+   panel growing. */
+#createForm {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+}
+
+#createForm #descriptionInput {
+    flex: 1 1 auto;     /* take whatever space is left */
+    height: auto;
+    min-height: 56px;   /* never smaller than ~2 lines */
+}
+
+#createForm .form-buttons {
+    margin-top: auto;   /* buttons always sit at the bottom */
+    padding-top: 16px;
+}
+
+/* Grey "<" back button: the image fills the whole button */
+.btn-back {
+    overflow: hidden;
+}
+
+.btn-back img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Green "+" save button: the image fills the whole button */
+.btn-save {
+    background: var(--green);
+    border: none;
+    overflow: hidden;
+}
+
+.btn-save img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Slightly darker when the mouse is over the save button */
+.btn-save:hover {
+    filter: brightness(0.92);
+}
